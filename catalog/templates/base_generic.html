@@ -76,41 +76,44 @@
   </div>
 
   <!-- Google Maps Body-->
-      <h3>My Google Maps Demo</h3>
+    <h3>My Google Maps Demo</h3>
     <div id="map"></div>
     <script >
+      var map;
       function initMap() {
 
-        var uluru = {lat:{{intern_prj_data.0.latitude}}, lng:{{intern_prj_data.0.longitude}}};
-
-        i = 0
-        var lat = {{intern_prj_data.0.latitude}};
-        var long = {{intern_prj_data.0.longitude}};
-        var map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 4,
+        //var uluru = {lat:{{intern_prj_data.0.latitude}}, lng:{{intern_prj_data.0.longitude}}};
+        var lat = 15;
+        var long = 100;
+        map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 6,
         // center: uluru
         //center: new google.maps.LatLng(-33.92, 151.25)
           center: new google.maps.LatLng(lat,long)
         });
 
-  var marker = new google.maps.Marker({
-    position: uluru,
-    map: map,
-    title: 'Hello World!'
-  });
+        // var marker = new google.maps.Marker({
+        //   position: {lat:{{intern_prj_data.0.latitude}}, lng:{{intern_prj_data.0.longitude}}},
+        //   map: map,
+        //   title: 'Hello World!'
+        // });
+
+        {% for project in intern_prj_data %}
+          var marker = new google.maps.Marker({
+            position: {lat:{{project.latitude}}, lng:{{project.longitude}}},
+            map: map,
+            title: 'Hello World!'
+          });
+        {% endfor %}
 
       }
 
     </script>
-  {% for project in intern_prj_data %}
-      <p>
-        {{ project.project_name }} {{project.latitude}} {{project.longitude}}
-      </p>
-  {% endfor %}
 
     <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAEqy_Jm7JyXQGOi-J_BtQwIn_E9v1tlIo&callback=initMap">
     </script>
+
 
     <!-- Google Table Body -->
     <h3>Daily Production</h3>
