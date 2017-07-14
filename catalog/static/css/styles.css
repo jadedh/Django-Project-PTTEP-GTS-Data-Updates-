@@ -1,0 +1,13 @@
+.sidebar-nav {
+    margin-top: 20px;
+    padding: 0;
+    list-style: none;
+}
+  .map {
+    height: 400px;
+    width: 100%;
+   }
+  .table_div {
+    height: 200px;
+    width: 50%;
+   }       
