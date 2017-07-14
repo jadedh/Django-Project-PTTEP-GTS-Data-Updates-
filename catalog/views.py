@@ -36,13 +36,13 @@ def index(request):
 #    obj_scope = obj_query.values('account','type','scope')
 #    account_info = obj.values('account','type','scope')
 #    area_data = Area.objects.all().values('insert_date','name')
-#    x = 'hello '
+
 
 
     #intern_prj_data = intern_prj.values('project_name','opr_status','longitude','latitude','percent_share','drilling_activity')
 
     intern_obj_num = InternPrjMwPawAllActivity.objects.all().count()
-    intern_prj_data = InternPrjMwPawAllActivity.objects.all().values('project_name','latitude','longitude')
+    intern_prj_data = InternPrjMwPawAllActivity.objects.all().values('project_name','latitude','longitude','opr_status','activity_type','percent_share')
     intern_prj_list = InternPrjPawAllActivity.objects.values_list('project_name','longitude')
 
     # Render the HTML template index.html with the data in the context variable

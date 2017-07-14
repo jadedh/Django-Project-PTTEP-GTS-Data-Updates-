@@ -21,9 +21,10 @@
        }
 
       #table_div {
-        height: 200px;
-        width: 50%;
-       }       
+        height: 1000px;
+        width: 40%;
+       }
+
     </style>
 
 
@@ -35,17 +36,16 @@
 
       function drawTable() {
         var data = new google.visualization.DataTable();
-        data.addColumn('string', 'Site Name');
-        data.addColumn('number', 'Salary');
-        data.addColumn('number', 'Oil Sale');
-        data.addColumn('number', 'Gas Sale');
-        data.addColumn('boolean', 'Full Time Employee');
-        data.addRows([
-          ['Mike',  {v: 10000, f: '$10,000'}, 1000, 2000, true],
-          ['Jim',   {v:8000,   f: '$8,000'}, 4000, 2000,  false],
-          ['Alice', {v: 12500, f: '$12,500'}, 7400, 1200, true],
-          ['Bob',   {v: 7000,  f: '$7,000'}, 1200, 5500, true]
-        ]);
+        data.addColumn('string', 'Project Name');
+        data.addColumn('string', 'Operator Status');
+        data.addColumn('number', 'Percentage Share (%)');
+        data.addColumn('string', 'Activity Type');
+
+        {% for project in intern_prj_data %}
+          data.addRows([
+          ['{{project.project_name}}','{{project.opr_status}}',{{project.percent_share}},'{{project.activity_type}}']
+          ]);
+        {% endfor %}
 
         var table = new google.visualization.Table(document.getElementById('table_div'));
 
@@ -98,12 +98,61 @@
         //   title: 'Hello World!'
         // });
 
+        // Function for adding a marker to the page.
+        function addMarker(lati,longi) {
+            marker = new google.maps.Marker({
+                position: {lat:lati, lng:longi},
+                map: map
+            });
+        }
+
+        // var contentString = 
+        //     '<div id="content">'+
+        //       '<div id="siteNotice">'+
+        //       '</div>'+
+        //     '<h1 id="firstHeading" class="firstHeading">Uluru</h1>'+
+        //     '<div id="bodyContent">'+
+        //       '<p><b>Uluru</b>, also referred to as <b>Ayers Rock</b>, is a large ' +
+        //       'sandstone rock formation in the southern part of the '+
+        //       'Northern Territory, central Australia. It lies 335&#160;km (208&#160;mi) '+
+        //       'south west of the nearest large town, Alice Springs; 450&#160;km '+
+        //       '(280&#160;mi) by road. Kata Tjuta and Uluru are the two major '+
+        //       'features of the Uluru - Kata Tjuta National Park. Uluru is '+
+        //       'sacred to the Pitjantjatjara and Yankunytjatjara, the '+
+        //       'Aboriginal people of the area. It has many springs, waterholes, '+
+        //       'rock caves and ancient paintings. Uluru is listed as a World '+
+        //       'Heritage Site.</p>'+
+
+        //     '<p>Attribution: Uluru, <a href="https://en.wikipedia.org/w/index.php?title=Uluru&oldid=297882194">'+
+        //      'https://en.wikipedia.org/w/index.php?title=Uluru</a> '+
+        //       '(last visited June 22, 2009).</p>'+
+        //     '</div>'+
+        //     '</div>';
+
+
         {% for project in intern_prj_data %}
           var marker = new google.maps.Marker({
             position: {lat:{{project.latitude}}, lng:{{project.longitude}}},
             map: map,
+            clickable: true,
             title: 'Hello World!'
           });
+
+          marker.info = new google.maps.InfoWindow({
+          content:
+            '<p>Project Name: <b>{{project.project_name}} </b></p>'+
+            '<p>Operating Status: <b>{{project.opr_status}} </b></p>'+
+            '<p>Activity: <b>{{project.activity_type}} </b></p>'
+          });
+          
+          google.maps.event.addListener(marker, 'click', function() {
+          var marker_map = this.getMap();
+          this.info.open(marker_map, this);
+          });
+          
+          // marker.addListener('click', function() {
+          // infowindow.open(map, marker);
+          // });
         {% endfor %}
 
       }
@@ -116,7 +165,6 @@
 
 
     <!-- Google Table Body -->
-    <h3>Daily Production</h3>
     <div id="table_div"></div>    
 
     
