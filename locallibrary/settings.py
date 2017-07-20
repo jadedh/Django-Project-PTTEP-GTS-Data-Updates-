@@ -89,12 +89,12 @@ DATABASES = {
 
 
         
-        #'ENGINE':   'django.db.backends.oracle',
-        #'NAME':     'sdsprod',
-        #'USER':     'panopuser',
-        #'PASSWORD': 'panopuser',
-        #'HOST': '10.200.42.40',
-        #'PORT': '1522',
+        # 'ENGINE':   'django.db.backends.oracle',
+        # 'NAME':     'sdsprod',
+        # 'USER':     'panopuser',
+        # 'PASSWORD': 'panopuser',
+        # 'HOST': '10.200.42.40',
+        # 'PORT': '1522',
 
         
         'ENGINE':   'django.db.backends.oracle',
@@ -103,7 +103,20 @@ DATABASES = {
         'PASSWORD': 'panopuser',
         'HOST': '10.200.42.40',
         'PORT': '1521', 
-    }
+
+        # 'ENGINE': 'django.db.backends.mysql',
+        # 'NAME': 'hq-doaxhq-db01',
+        # 'USER': 'corp_pdms',
+        # 'PASSWORD': 'corp_pdms',
+        # 'HOST':'10.1.8.142',
+        # 'PORT': '3306', 
+    },
+    # 'users': {
+        # 'NAME': 'hq-doaxhq-db01',
+        # 'ENGINE': 'django.db.backends.mysql',
+        # 'USER': 'corp_pdms',
+        # 'PASSWORD': 'corp_pdms'
+    # }
 }
 
 
